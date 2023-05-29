@@ -9,4 +9,4 @@ This creates a projects folders based on the game which you're modding. If set t
 
 ## Cook files 
 ![cook_files](https://github.com/Austin12325/Austins-Unreal-Mod-Tools/blob/main/docs/cookfiles.gif "Cook Files")
-Cooking the files will have unreal cool the specified UProject, Package the cooked files (while also supporting pak chunks set in engine) using [U4pak.py](https://github.com/panzi/u4pak), and move the files to your games folder with the option to place along side the games pak files, or nested in a folder. 
+Cooking the files will have unreal cook the specified UProject, Package the cooked files (while also supporting pak chunks set in engine) using [U4pak.py](https://github.com/panzi/u4pak), and move the files to your games folder with the option to place along side the games pak files, or nested in a folder. 
