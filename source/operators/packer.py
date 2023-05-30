@@ -5,10 +5,10 @@ import subprocess
 
 packerpath = os.path.join(os.path.dirname(__file__), "assets", "u4pak.py")
 
-uepath = bpy.context.scene["sna_uet_engine_path"]
-project = bpy.context.scene["sna_uet_projectpath"]
-gamefiles = bpy.context.scene["sna_uet_targetexe"]
-chunkcheck = bpy.context.scene["sna_uet_chunkcheck"]
+uepath = bpy.context.scene.sna_uet_engine_path
+project = bpy.context.scene.sna_uet_projectpath
+gamefiles = bpy.context.scene.sna_uet_targetexe
+chunkcheck = bpy.context.scene.sna_uet_chunkcheck
 
 projectname = project.split("\\")[-1][:-9]
 projectlen = len(project.split("\\")[-1])

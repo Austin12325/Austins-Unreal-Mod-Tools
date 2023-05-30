@@ -1,10 +1,10 @@
 import bpy
 import os
 
-uepath = bpy.context.scene["sna_uet_engine_path"]
-project = bpy.context.scene["sna_uet_projectpath"]
-gamefiles = bpy.context.scene["sna_uet_targetexe"]
-chunkcheck = bpy.context.scene["sna_uet_chunkcheck"]
+uepath = bpy.context.scene.sna_uet_engine_path
+project = bpy.context.scene.sna_uet_projectpath
+gamefiles = bpy.context.scene.sna_uet_targetexe
+chunkcheck = bpy.context.scene.sna_uet_chunkcheck
 selection = bpy.context.scene.sna_uet_txtfiles
 
 
