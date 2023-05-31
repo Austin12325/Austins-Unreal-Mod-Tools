@@ -44,6 +44,21 @@ subprocess.run(
     + " -run=Cook  -TargetPlatform=WindowsNoEditor"
 )
 
+### This here removes the extra folders found in the project/saved/cooked folder
+   
+def rmoldcook():
+    
+    for folder in os.listdir(sourcefolder):
+        
+        if folder.endswith(number):
+            print("file ends with number ",folder)
+            try:
+                shutil.rmtree(os.path.join(sourcefolder,folder))
+                print(os.path.join(sourcefolder,folder))
+            except:
+                print("could not remove dirs, unknown")
+
+
 def packer():
     print("packer here", packerpath)
     
@@ -83,12 +98,12 @@ def packer():
             + f'{folder+".pak "}'
             +exename
         )
-### We are moving the pak files to 
+### We are moving the pak files to the game folder
         shutil.copy(os.path.join(exportpath,folder)+".pak",gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
         os.remove(os.path.join(exportpath,folder)+".pak")
         shutil.rmtree(os.path.join(exportpath,exename))
         
-
+                 
 ### This is code I stole from my foxhole addon I wrote 6 months ago, no idea what I did then, still don't have any idea what it does now. in the process of re-writing
 
 if chunkcheck == 1:
@@ -138,8 +153,9 @@ if chunkcheck == 1:
             file1.close()
             
             packer()
+            rmoldcook()
             
 
 else:
     packer()
-    
+    rmoldcook()
