@@ -34,8 +34,7 @@ if selection == 'None':
 
     except:
         self.report({"WARNING"}, "Uproject name not found in addon")
-    print("None")
-
+        
     file.close()
 
 
@@ -55,8 +54,6 @@ if selection == 'Foxhole':
 
     except:
         self.report({"WARNING"}, "Uproject name not found in addon")
-        print("filenot found")
-    print("Foxhole")
     
     file.close()
 
@@ -80,7 +77,6 @@ if selection == 'StarshipTroopers:Extermination':
 
     except:
         self.report({"WARNING"}, "Uproject name not found in addon")
-    print("Foxhole")
     
     file.close()
 
