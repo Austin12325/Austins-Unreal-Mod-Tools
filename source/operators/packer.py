@@ -91,16 +91,27 @@ def packer():
         except:
             pass
 ### Runs the packer 
+        if folder.endswith(number):
+            chunknumber = folder[-1]
+        else:
+            chunknumber = "0"
+            
         subprocess.run(
             'python "'
             + packerpath
             + '" pack '
-            + f'{folder+".pak "}'
+            + f'{exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak "}'
             +exename
         )
 ### We are moving the pak files to the game folder
-        shutil.copy(os.path.join(exportpath,folder)+".pak",gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
-        os.remove(os.path.join(exportpath,folder)+".pak")
+        for bug in os.listdir(exportpath):
+            if bug.endswith("k"):
+                print(bug)
+            else:
+                print("none")
+        print(exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak")
+        shutil.copy(exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak",gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
+        os.remove(exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak")
         shutil.rmtree(os.path.join(exportpath,exename))
         
                  
