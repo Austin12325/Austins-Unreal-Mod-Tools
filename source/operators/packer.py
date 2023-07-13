@@ -9,6 +9,8 @@ uepath = bpy.context.scene.sna_uet_engine_path
 project = bpy.context.scene.sna_uet_projectpath
 gamefiles = bpy.context.scene.sna_uet_targetexe
 chunkcheck = bpy.context.scene.sna_uet_chunkcheck
+foldercheck = bpy.context.scene.sna_uet_foldercheck
+deletechunk = bpy.context.scene.sna_uet_deletechunk
 
 projectname = project.split("\\")[-1][:-9]
 projectlen = len(project.split("\\")[-1])
@@ -58,17 +60,16 @@ def rmoldcook():
             except:
                 print("could not remove dirs, unknown")
 
-
 def packer():
     print("packer here", packerpath)
     
 ### Check and see if the target game already has a mods folder
-
-    try:
-        os.mkdir(gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
-    except:
-        pass
-
+    if foldercheck == True:
+        try:
+            os.mkdir(gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
+        except:
+            pass
+        
     for folder in os.listdir(sourcefolder):
         
 ### Checks for game folder in blender dir (the folder gets used for packaging)
@@ -100,30 +101,44 @@ def packer():
             'python "'
             + packerpath
             + '" pack '
-            + f'{exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak "}'
+            + f'{exename+"-"+"WindowsNoEditor_"+projectname+"-"+chunknumber+".pak "}'
             +exename
         )
-### We are moving the pak files to the game folder
-        for bug in os.listdir(exportpath):
-            if bug.endswith("k"):
-                print(bug)
-            else:
-                print("none")
-        print(exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak")
-        shutil.copy(exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak",gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
-        os.remove(exename+"-"+"WindowsNoEditor-"+projectname+"-"+chunknumber+".pak")
-        shutil.rmtree(os.path.join(exportpath,exename))
         
-                 
+### We are moving the pak files to the game folder
+                
+        print("Mod name: "+exename+"-"+"WindowsNoEditor_"+projectname+"-"+chunknumber+".pak")
+        
+        if foldercheck == True:
+            shutil.copy(exename+"-"+"WindowsNoEditor_"+projectname+"-"+chunknumber+".pak",gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods")
+        else:
+            shutil.copy(exename+"-"+"WindowsNoEditor_"+projectname+"-"+chunknumber+".pak",gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks")
+
+        os.remove(exename+"-"+"WindowsNoEditor_"+projectname+"-"+chunknumber+".pak")
+        
+        shutil.rmtree(os.path.join(exportpath,exename))
+
+        
+        
+        if deletechunk == True:
+            if foldercheck == True:
+                try:
+                    os.remove(os.path.join(path, gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\~mods\\", exename+"-"+"WindowsNoEditor_"+projectname+"-0.pak"))
+                except:
+                    pass
+            else:
+                try:
+                    os.remove(os.path.join(path, gamefiles[:-len(exename)-4]+exename+"\\Content\\Paks\\", exename+"-"+"WindowsNoEditor_"+projectname+"-0.pak"))
+                except:
+                    pass
+                
+            
 ### This is code I stole from my foxhole addon I wrote 6 months ago, no idea what I did then, still don't have any idea what it does now. in the process of re-writing
 
 if chunkcheck == 1:
     for file in os.listdir(chunkpath):
-#        print(file)
-#        print(file[-5])
 
         if file.endswith(number, 0, -4):
-            print("file ends with number")
             file1 = open(chunkpath + "\\" + file, "r")
             count = 0
 
